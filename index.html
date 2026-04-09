@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>THE BOYS UNIVERSE — Men's Wear</title>
+  <meta name="description" content="The Boys Universe — Stylish, affordable men's wear. Shop shirts, jackets, tees & more." />
+  <style>
+    :root{
+      --brand:#0b6efd; /* blue */
+      --muted:#6b7280;
+      --bg:#f7f7fb;
+      --card:#ffffff;
+      --accent:#ff6b6b;
+      --radius:12px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:#111}
+    header{background:linear-gradient(90deg,#fff 0%,#f4f6ff 100%);border-bottom:1px solid #e6e9ef}
+    .container{max-width:1100px;margin:0 auto;padding:20px}
+    nav{display:flex;align-items:center;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700}
+    .brand .logo{width:44px;height:44px;border-radius:10px;background:var(--brand);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:18px}
+    .nav-links{margin-left:auto;display:flex;gap:10px}
+    .nav-links button{background:transparent;border:0;padding:10px 12px;border-radius:10px;cursor:pointer;font-weight:600}
+    .nav-links button.active{background:rgba(11,110,253,0.12);color:var(--brand)}
+    main{padding:28px 20px}
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:24px;align-items:center}
+    .hero .eyebrow{color:var(--muted);font-weight:700;margin-bottom:6px}
+    .hero h1{font-size:34px;margin:6px 0}
+    .hero p{color:var(--muted);line-height:1.5}
+    .hero .cta{margin-top:16px}
+    .btn{background:var(--brand);color:#fff;padding:12px 18px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
+    .btn.ghost{background:transparent;color:var(--brand);border:1px solid rgba(11,110,253,0.12)}
+
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(17,17,17,0.04)}
+    .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+    .product{border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#fff,#fbfdff)}
+    .product img{width:100%;height:220px;object-fit:cover;display:block}
+    .product .meta{padding:12px}
+    .product h3{margin:0;font-size:16px}
+    .product p{margin:6px 0;color:var(--muted);font-size:14px}
+    .price-row{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+    .price{font-weight:800}
+    .small{font-size:13px;color:var(--muted)}
+
+    .cart-panel{position:fixed;right:20px;bottom:20px;width:320px;max-height:70vh;overflow:auto}
+    .cart-btn{position:fixed;right:20px;bottom:20px;background:var(--brand);color:#fff;border-radius:999px;padding:14px 18px;border:0;cursor:pointer;box-shadow:0 10px 30px rgba(11,110,253,0.18)}
+
+    footer{padding:28px 20px;background:transparent;border-top:1px solid #e9edf5;margin-top:36px}
+    .footer-grid{display:flex;gap:20px;flex-wrap:wrap}
+
+    /* contact */
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    input,textarea,select{width:100%;padding:12px;border-radius:10px;border:1px solid #e6e9ef}
+    textarea{min-height:120px}
+
+    /* responsive */
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr}
+      .nav-links{display:none}
+    }
+
+    /* small tweaks for product modal */
+    .modal{position:fixed;left:0;top:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(17,17,17,0.45)}
+    .modal .modal-card{width:960px;max-width:95%;background:#fff;border-radius:12px;padding:18px;display:grid;grid-template-columns:420px 1fr;gap:18px}
+    .close-x{position:absolute;right:12px;top:12px;border:0;background:transparent;font-size:18px}
+
+    /* tiny cart list */
+    .cart-list{padding:12px}
+    .cart-item{display:flex;gap:10px;align-items:center;padding:10px;border-bottom:1px solid #f1f3f7}
+    .cart-item img{width:54px;height:54px;object-fit:cover;border-radius:8px}
+
+    .badge{background:var(--accent);color:#fff;padding:4px 8px;border-radius:999px;font-weight:700;font-size:13px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="brand" onclick="navigate('home')" style="cursor:pointer">
+          <div class="logo">BU</div>
+          <div>
+            <div style="font-size:14px;opacity:0.9">THE BOYS UNIVERSE</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px">Men's Wear</div>
+          </div>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+          <button data-page="home" class="active" onclick="navigate('home')">Home</button>
+          <button data-page="products" onclick="navigate('products')">Shop</button>
+          <button data-page="contact" onclick="navigate('contact')">Contact</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Home -->
+    <section id="page-home">
+      <div class="hero">
+        <div>
+          <div class="eyebrow">New Collection • 2025</div>
+          <h1>Classic fits. Modern style.<br/>Men's wear that works anywhere.</h1>
+          <p>Shop shirts, tees, jackets and accessories designed for everyday confidence. Affordable quality, fast shipping across India.</p>
+          <div class="cta">
+            <button class="btn" onclick="navigate('products')">Shop Collection</button>
+            <button class="btn ghost" style="margin-left:8px" onclick="navigate('contact')">Get in Touch</button>
+          </div>
+
+          <div style="display:flex;gap:12px;margin-top:18px">
+            <div class="card" style="padding:12px;display:flex;gap:12px;align-items:center">
+              <div style="font-weight:800">Free Delivery</div>
+              <div class="small">On orders over ₹999</div>
+            </div>
+            <div class="card" style="padding:12px;display:flex;gap:12px;align-items:center">
+              <div style="font-weight:800">Easy Returns</div>
+              <div class="small">14-day returns</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="text-align:center">
+          <img src="https://via.placeholder.com/400x400?text=Men's+Wear" alt="hero" style="width:100%;height:300px;object-fit:cover;border-radius:10px;" />
+          <div style="margin-top:12px;font-weight:700">Summer Essentials Pack</div>
+          <div class="small">Shirts • Tees • Shorts</div>
+          <div style="margin-top:12px">
+            <button class="btn" onclick="navigate('products')">View Pack</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:28px">
+        <h2 style="margin-bottom:10px">Featured Products</h2>
+        <div class="product-grid card" id="homeFeatured" style="padding:16px"></div>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section id="page-products" style="display:none">
+      <div style="display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <h2>Shop — All Products</h2>
+        <div style="display:flex;gap:8px;align-items:center">
+          <select id="sort" onchange="renderProducts()">
+            <option value="featured">Featured</option>
+            <option value="low">Price: Low to High</option>
+            <option value="high">Price: High to Low</option>
+          </select>
+          <input placeholder="Search products" id="search" oninput="renderProducts()" style="padding:10px;border-radius:10px;border:1px solid #e6e9ef" />
+        </div>
+      </div>
+
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <!-- Contact -->
+    <section id="page-contact" style="display:none">
+      <h2>Contact Us</h2>
+      <div style="display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:12px">
+        <div class="card">
+          <p class="small">Have questions about sizes, bulk orders, or collaboration? Drop us a message — we usually reply within 24 hours.</p>
+          <form id="contactForm" onsubmit="submitContact(event)">
+            <div class="form-row">
+              <input required placeholder="Your name" name="name" />
+              <input required placeholder="Email or phone" name="contact" />
+            </div>
+            <div style="margin-top:12px">
+              <input placeholder="Subject" name="subject" />
+            </div>
+            <div style="margin-top:12px">
+              <textarea placeholder="Message" name="message" required></textarea>
+            </div>
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <button class="btn" type="submit">Send Message</button>
+              <button class="btn ghost" type="button" onclick="window.location='mailto:info@theboysuniverse.com'">Email Us</button>
+            </div>
+          </form>
+        </div>
+
+        <div>
+          <div class="card" style="margin-bottom:12px">
+            <h3>Store Info</h3>
+            <p class="small">THE BOYS UNIVERSE • Men's Wear</p>
+            <p class="small">Email: info@theboysuniverse.com</p>
+            <p class="small">Phone: +91-XXXXXXXXXX</p>
+          </div>
+          <div class="card">
+            <h3>Follow Us</h3>
+            <p class="small">Instagram • Facebook • X</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div style="flex:1">
+        <div style="font-weight:800">THE BOYS UNIVERSE</div>
+        <div class="small" style="margin-top:6px">Men's wear — quality pieces for everyday life.</div>
+      </div>
+      <div style="min-width:180px">
+        <div style="font-weight:700">Quick Links</div>
+        <div class="small" style="margin-top:8px">Home • Shop • Contact</div>
+      </div>
+      <div style="min-width:220px">
+        <div style="font-weight:700">Payment & Delivery</div>
+        <div class="small" style="margin-top:8px">COD • UPI • Netbanking • Credit/Debit Cards</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cart button -->
+  <button class="cart-btn" id="openCartBtn" title="Open cart" onclick="toggleCart()">Cart (<span id="cartCount">0</span>)</button>
+
+  <!-- Cart panel (hidden) -->
+  <div class="cart-panel" id="cartPanel" style="display:none">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-weight:800">Your Cart</div>
+        <button class="close-x" onclick="toggleCart()">✕</button>
+      </div>
+      <div class="cart-list" id="cartList"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:12px">
+        <div style="font-weight:800">Total: ₹<span id="cartTotal">0</span></div>
+        <div>
+          <button class="btn" onclick="checkout()">Checkout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal area -->
+  <div id="modalRoot"></div>
+
+  <script>
+    /* SAMPLE PRODUCTS — replace images and data with real ones before launch */
+    const PRODUCTS = [
+      {id:1,name:"Classic Oxford Shirt",price:899,desc:"Slim fit oxford shirt — breathable cotton.",img:"https://via.placeholder.com/600x600?text=Oxford+Shirt"},
+      {id:2,name:"Everyday Tee",price:399,desc:"Soft cotton tee, perfect for layering.",img:"https://via.placeholder.com/600x600?text=Everyday+Tee"},
+      {id:3,name:"Lightweight Jacket",price:2499,desc:"Water-resistant, stylish for evenings.",img:"https://via.placeholder.com/600x600?text=Light+Jacket"},
+      {id:4,name:"Denim Jeans",price:1199,desc:"Comfort stretch denim — regular fit.",img:"https://via.placeholder.com/600x600?text=Denim+Jeans"},
+      {id:5,name:"Chino Shorts",price:699,desc:"Casual summer shorts — comfy waist.",img:"https://via.placeholder.com/600x600?text=Chino+Shorts"},
+      {id:6,name:"Formal Blazer",price:3499,desc:"Perfect for smart-casual events.",img:"https://via.placeholder.com/600x600?text=Formal+Blazer"}
+    ];
+
+    let cart = JSON.parse(localStorage.getItem('bu_cart')||'[]');
+
+    function saveCart(){ localStorage.setItem('bu_cart',JSON.stringify(cart)); renderCart(); }
+    function addToCart(id,qty=1){
+      const p = PRODUCTS.find(x=>x.id===id);
+      if(!p) return alert('Product not found');
+      const cur = cart.find(x=>x.id===id);
+      if(cur) cur.qty += qty; else cart.push({id:id,qty:qty});
+      saveCart();
+      showToast(`${p.name} added to cart`);
+    }
+
+    function renderCart(){
+      const list = document.getElementById('cartList');
+      list.innerHTML='';
+      let total=0; let count=0;
+      cart.forEach(item=>{
+        const p = PRODUCTS.find(x=>x.id===item.id);
+        const el = document.createElement('div'); el.className='cart-item';
+        el.innerHTML = `<img src="${p.img}" /><div style=flex:1><div style='font-weight:700'>${p.name}</div><div class='small'>₹${p.price} x ${item.qty}</div></div><div style='text-align:right'><div style='font-weight:800'>₹${p.price*item.qty}</div><div style='margin-top:6px'><button onclick='changeQty(${p.id},-1)'>-</button><button onclick='changeQty(${p.id},1)'>+</button></div></div>`;
+        list.appendChild(el);
+        total += p.price * item.qty; count += item.qty;
+      });
+      document.getElementById('cartTotal').innerText = total;
+      document.getElementById('cartCount').innerText = count;
+      if(count===0){ list.innerHTML = '<div class="small">Your cart is empty. Add some products!</div>' }
+    }
+
+    function changeQty(id,delta){
+      const cur = cart.find(x=>x.id===id);
+      if(!cur) return;
+      cur.qty += delta; if(cur.qty<=0) cart = cart.filter(x=>x.id!==id);
+      saveCart();
+    }
+
+    function toggleCart(){
+      const panel = document.getElementById('cartPanel');
+      panel.style.display = (panel.style.display==='none' || panel.style.display==='') ? 'block' : 'none';
+    }
+
+    function checkout(){
+      if(cart.length===0){ alert('Your cart is empty'); return }
+      // In production, integrate payment gateway and backend order capture.
+      alert('Checkout placeholder — integrate payment gateway and order backend.');
+    }
+
+    function showModal(product){
+      const root = document.getElementById('modalRoot');
+      root.innerHTML = `<div class='modal' onclick='closeModal(event)'><div class='modal-card card' onclick='event.stopPropagation()'>
+        <img src="${product.img}" style="width:100%;height:100%;object-fit:cover;border-radius:8px" />
+        <div>
+         <h2 style='margin-top:0'>${product.name}</h2>
+         <div class='small'>${product.desc}</div>
+         <div style='margin-top:12px;font-weight:800'>₹${product.price}</div>
+         <div style='margin-top:14px;display:flex;gap:8px;align-items:center'>
+           <input id='modalQty' type='number' value='1' min='1' style='width:80px;padding:8px;border-radius:8px;border:1px solid #e6e9ef' />
+           <button class='btn' onclick='modalAdd(${product.id})'>Add to cart</button>
+         </div>
+         <p class='small' style='margin-top:12px'>Free delivery on orders over ₹999 • Easy returns</p>
+        </div>
+        <button class='close-x' onclick='closeModal(event)'>✕</button>
+      </div></div>`;
+    }
+    function closeModal(e){ const root = document.getElementById('modalRoot'); root.innerHTML=''; }
+    function modalAdd(id){ const qty = parseInt(document.getElementById('modalQty').value||1); addToCart(id,qty); closeModal(); }
+
+    function renderProducts(){
+      const grid = document.getElementById('productGrid');
+      const featured = document.getElementById('homeFeatured');
+      const q = document.getElementById('search').value.toLowerCase();
+      const sort = document.getElementById('sort').value;
+      let list = PRODUCTS.filter(p=>p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
+      if(sort==='low') list.sort((a,b)=>a.price-b.price);
+      if(sort==='high') list.sort((a,b)=>b.price-a.price);
+      grid.innerHTML='';
+      list.forEach(p=>{
+        const el = document.createElement('div'); el.className='product card';
+        el.innerHTML = `<img src='${p.img}' alt='${p.name}' /><div class='meta'><h3>${p.name}</h3><p class='small'>${p.desc}</p><div class='price-row'><div class='price'>₹${p.price}</div><div><button class='btn ghost' onclick='showModalById(${p.id})'>View</button> <button class='btn' onclick='addToCart(${p.id})'>Add</button></div></div></div>`;
+        grid.appendChild(el);
+      });
+
+      // featured: first 4
+      featured.innerHTML='';
+      PRODUCTS.slice(0,4).forEach(p=>{
+        const e = document.createElement('div'); e.className='product'; e.style.display='flex'; e.style.alignItems='center'; e.style.gap='12px';
+        e.innerHTML = `<img src='${p.img}' style='width:120px;height:90px;object-fit:cover;border-radius:8px' /><div style='padding:8px'><div style='font-weight:700'>${p.name}</div><div class='small'>₹${p.price}</div></div>`;
+        featured.appendChild(e);
+      });
+    }
+
+    function showModalById(id){ const p = PRODUCTS.find(x=>x.id===id); if(p) showModal(p); }
+
+    function navigate(page){
+      // Update nav active
+      document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
+      const btn = document.querySelector(`.nav-links button[data-page="${page}"]`);
+      if(btn) btn.classList.add('active');
+
+      // Hide all pages
+      document.getElementById('page-home').style.display='none';
+      document.getElementById('page-products').style.display='none';
+      document.getElementById('page-contact').style.display='none';
+      // Show requested
+      document.getElementById('page-'+page).style.display='block';
+      // scroll top
+      window.scrollTo(0,0);
+    }
+
+    function submitContact(e){ e.preventDefault(); const fm = e.target; const data = new FormData(fm); // For demo we just show an alert
+      alert('Thanks '+data.get('name')+" — message received. (Demo only)\nWe'll contact you at: "+data.get('contact'));
+      fm.reset();
+    }
+
+    function showToast(message){
+      const el = document.createElement('div'); el.style.position='fixed'; el.style.left='20px'; el.style.bottom='100px'; el.style.background='#111'; el.style.color='#fff'; el.style.padding='10px 14px'; el.style.borderRadius='10px'; el.style.boxShadow='0 8px 20px rgba(0,0,0,0.2)'; el.innerText = message;
+      document.body.appendChild(el);
+      setTimeout(()=>el.style.transform='translateY(-6px)',10);
+      setTimeout(()=>el.remove(),2200);
+    }
+
+    // Init
+    renderProducts(); renderCart();
+  </script>
+</body>
+</html>
